@@ -1,0 +1,33 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Cache de Python / build
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Herramientas
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+
+# Salidas generadas por los comandos (pueden contener datos personales)
+*.xlsx
+*.xls
+xml_renombrados/
+originalFiles/
+.tmp.pdf
+._ov_*.pdf
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/

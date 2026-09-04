@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "documents-toolkit"
+version = "0.1.0"
+description = "CLI de utilerías para procesar documentos: CFDI/XML del SAT, PDFs, imágenes y SPEI."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["pdf", "xml", "cfdi", "sat", "spei", "cli", "documents"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+]
+dependencies = []
+
+[project.optional-dependencies]
+pdf = ["pypdf>=4", "pymupdf>=1.24", "pillow>=10", "reportlab>=4", "pdfplumber>=0.11"]
+data = ["pandas>=2", "openpyxl>=3.1", "pyyaml>=6"]
+dev = ["ruff>=0.6", "pytest>=8"]
+all = [
+    "pypdf>=4", "pymupdf>=1.24", "pillow>=10", "reportlab>=4", "pdfplumber>=0.11",
+    "pandas>=2", "openpyxl>=3.1", "pyyaml>=6",
+]
+
+[project.scripts]
+doctk = "doctk.cli:main"
+
+[project.urls]
+Repository = "https://github.com/Gibranhiko/documents-toolkit"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
