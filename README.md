@@ -33,6 +33,22 @@ pip install -e ".[pdf]"        # sólo utilerías de PDF/imagen
 pip install -e ".[all,dev]"    # todo + herramientas de desarrollo
 ```
 
+## Carpetas de trabajo
+
+El repo incluye dos carpetas para procesar tus documentos localmente:
+
+| Carpeta   | Para qué                                    |
+|-----------|---------------------------------------------|
+| `input/`  | archivos originales que vas a procesar       |
+| `output/` | resultados generados por los comandos        |
+
+Su **contenido está ignorado por git** (sólo se versiona un `.gitkeep`), así que puedes
+dejar ahí documentos con datos personales sin riesgo de subirlos. Ejemplo:
+
+```bash
+doctk pdf split --input input/documento.pdf --output output/paginas
+```
+
 ## Uso
 
 ```bash
@@ -61,11 +77,14 @@ doctk cfdi rename --input ./xml_deducciones --output ./xml_renombrados
 
 ```bash
 # Buscar texto/patrón en PDFs (acepta archivos, carpetas o globs)
-doctk pdf search --path ./estados --keyword "2,500"
-doctk pdf search --path ./estados --keyword "\d{2}/\d{2}/\d{4}" --regex
+doctk pdf search --path ./documentos --keyword "factura"
+doctk pdf search --path ./documentos --keyword "\d{2}/\d{2}/\d{4}" --regex
 
 # Compilar imágenes y PDFs de una carpeta en un solo PDF tamaño Carta
 doctk pdf merge --input ./imagenes --output compilado.pdf --dpi 300
+
+# Dividir un PDF en un archivo independiente por cada página
+doctk pdf split --input documento.pdf --output ./paginas
 
 # Intercalar frentes y reversos en un PDF doble cara
 doctk pdf duplex --fronts ./frentes --backs ./reversos --output doble_cara.pdf --reverse-backs

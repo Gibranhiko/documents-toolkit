@@ -16,6 +16,13 @@ dist/
 .pytest_cache/
 .mypy_cache/
 
+# Carpetas de trabajo: archivos originales y resultados (contienen datos personales).
+# Se conserva la carpeta en el repo (.gitkeep) pero se ignora su contenido.
+input/*
+output/*
+!input/.gitkeep
+!output/.gitkeep
+
 # Salidas generadas por los comandos (pueden contener datos personales)
 *.xlsx
 *.xls

@@ -54,17 +54,38 @@ def test_expand_inputs_dir_and_glob(tmp_path: Path):
     assert len(found2) == 2
 
 
+def _make_pdf(path: Path, pages: int) -> None:
+    import pypdf
+
+    writer = pypdf.PdfWriter()
+    for _ in range(pages):
+        writer.add_blank_page(width=200, height=200)
+    with path.open("wb") as f:
+        writer.write(f)
+
+
 def test_rmpages_removes_page(tmp_path: Path):
     pypdf = pytest.importorskip("pypdf")
 
     src = tmp_path / "in.pdf"
-    writer = pypdf.PdfWriter()
-    for _ in range(3):
-        writer.add_blank_page(width=200, height=200)
-    with src.open("wb") as f:
-        writer.write(f)
+    _make_pdf(src, 3)
 
     out = tmp_path / "out.pdf"
     rc = main(["pdf", "rmpages", "-i", str(src), "--pages", "2", "-o", str(out)])
     assert rc == 0
     assert len(pypdf.PdfReader(str(out)).pages) == 2
+
+
+def test_split_one_pdf_per_page(tmp_path: Path):
+    pypdf = pytest.importorskip("pypdf")
+
+    src = tmp_path / "doc.pdf"
+    _make_pdf(src, 3)
+
+    out_dir = tmp_path / "paginas"
+    rc = main(["pdf", "split", "-i", str(src), "-o", str(out_dir)])
+    assert rc == 0
+    produced = sorted(out_dir.glob("*.pdf"))
+    assert len(produced) == 3
+    assert [p.name for p in produced] == ["doc_p1.pdf", "doc_p2.pdf", "doc_p3.pdf"]
+    assert all(len(pypdf.PdfReader(str(p)).pages) == 1 for p in produced)
