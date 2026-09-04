@@ -76,6 +76,20 @@ def test_rmpages_removes_page(tmp_path: Path):
     assert len(pypdf.PdfReader(str(out)).pages) == 2
 
 
+def test_join_preserves_pages_in_order(tmp_path: Path):
+    pypdf = pytest.importorskip("pypdf")
+
+    a = tmp_path / "a.pdf"
+    b = tmp_path / "b.pdf"
+    _make_pdf(a, 2)
+    _make_pdf(b, 3)
+
+    out = tmp_path / "unido.pdf"
+    rc = main(["pdf", "join", "-i", str(a), str(b), "-o", str(out)])
+    assert rc == 0
+    assert len(pypdf.PdfReader(str(out)).pages) == 5
+
+
 def test_split_one_pdf_per_page(tmp_path: Path):
     pypdf = pytest.importorskip("pypdf")
 

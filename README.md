@@ -80,7 +80,12 @@ doctk cfdi rename --input ./xml_deducciones --output ./xml_renombrados
 doctk pdf search --path ./documentos --keyword "factura"
 doctk pdf search --path ./documentos --keyword "\d{2}/\d{2}/\d{4}" --regex
 
-# Compilar imágenes y PDFs de una carpeta en un solo PDF tamaño Carta
+# Unir varios PDFs en uno solo SIN pérdida (conserva texto, tamaño y calidad).
+# El orden es exactamente el orden en que se listan los archivos.
+doctk pdf join --input parte1.pdf parte2.pdf parte3.pdf --output completo.pdf
+
+# Compilar imágenes y PDFs de una carpeta en un solo PDF tamaño Carta.
+# OJO: rasteriza a imágenes (útil para fotos/escaneos; NO conserva texto vectorial).
 doctk pdf merge --input ./imagenes --output compilado.pdf --dpi 300
 
 # Dividir un PDF en un archivo independiente por cada página

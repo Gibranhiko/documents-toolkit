@@ -29,7 +29,8 @@ GROUPS: dict[str, tuple[str, list[tuple[str, str, str]]]] = {
         [
             ("search", "pdf_search", "Buscar texto/patrón en PDFs y listar páginas."),
             ("form", "pdf_form", "Listar/rellenar/aplanar campos de un formulario PDF."),
-            ("merge", "img2pdf", "Compilar imágenes y PDFs en un solo PDF tamaño Carta."),
+            ("join", "pdf_join", "Unir varios PDFs en uno solo, sin pérdida (conserva formato)."),
+            ("merge", "img2pdf", "Compilar imágenes y PDFs en un solo PDF tamaño Carta (rasteriza)."),
             ("split", "pdf_split", "Dividir un PDF en un archivo por página."),
             ("duplex", "pdf_duplex", "Intercalar frentes y reversos en un PDF doble cara."),
             ("rmpages", "pdf_rmpages", "Eliminar páginas de un PDF."),
